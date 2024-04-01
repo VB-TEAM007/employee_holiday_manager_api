@@ -6,25 +6,25 @@ export function authMiddleware(req, res, next) {
     const authHeader = req.headers['authorization'];
 
     if (!authHeader) {
-      throw ApiError.unauthorized();
+      throw ApiError.Unauthorized();
     }
 
     const [, accessToken] = authHeader.split(' ');
 
     if (!accessToken) {
-      throw ApiError.unauthorized();
+      throw ApiError.Unauthorized();
     }
 
     const employeeData = tokenService.validateAccessToken(accessToken);
 
     if (!employeeData) {
-      throw ApiError.unauthorized();
+      throw ApiError.Unauthorized();
     }
   
     req.employee = employeeData;
     next();
 
   } catch (e) {
-    throw ApiError.badRequest('Bad request', e);
+    throw ApiError.BadRequest('Cannot authorize user', e);
   }
 }
