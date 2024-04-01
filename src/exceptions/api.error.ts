@@ -1,39 +1,23 @@
-interface ApiErrorParams {
-  message: string;
-  status: number;
-  errors?: any;
-}
-
 export class ApiError extends Error {
-  message: string;
   status: number;
+  message: string;
   errors: any
 
-  constructor({ message, status, errors = {} } : ApiErrorParams) {
+  constructor(status, message, errors = []) {
     super(message);
     this.status = status;
     this.errors = errors;
   }
 
-  static badRequest(message, errors) {
-    return new ApiError({
-      message,
-      errors,
-      status: 400
-    })
+  static Unauthorized() {
+      return new ApiError(401, 'Unathorized user')
+  }
+  
+  static NotFound() {
+    return new ApiError(404, 'Not found')
   }
 
-  static unauthorized() {
-    return new ApiError({
-      message: 'unauthorized user',
-      status: 401
-    })
-  }
-
-  static notFound() {
-    return new ApiError({
-      message: 'not found',
-      status: 404
-    })
+  static BadRequest(message, errors = []) {
+      return new ApiError(400, message, errors);
   }
 }

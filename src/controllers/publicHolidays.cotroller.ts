@@ -15,7 +15,7 @@ const getByYearAndCountry = async (req, res) => {
 
     res.send(formatedData);
   } catch (e) {
-    throw ApiError.badRequest('Bad request', e);
+    throw ApiError.BadRequest('Bad request', e);
   }
 }
 

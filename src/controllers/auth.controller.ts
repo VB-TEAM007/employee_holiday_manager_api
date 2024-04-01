@@ -10,7 +10,7 @@ const register = async (req: Request, res: Response) => {
 
     res.json(employeeDto);
   } catch (e) {
-    throw ApiError.badRequest('Bad request', e);
+    throw ApiError.BadRequest('Bad request', e);
   }
 }
 
@@ -23,14 +23,14 @@ const login = async (req: Request, res: Response) => {
     res.cookie(
       'refreshToken',
       employeeData.refreshToken, {
-        maxAge: 30 * 1000,
+        maxAge: 60 * 1000,
         httpOnly: true
       }
     );
     
     res.json(employeeData);
   } catch (e) {
-    throw ApiError.badRequest('Bad request', e);
+    throw ApiError.BadRequest('Bad request', e);
   }
 }
 
@@ -42,7 +42,7 @@ const logout = async (req: Request, res: Response) => {
     res.clearCookie('refreshToken');
     return res.status(200).send('Logout successful');
   } catch (e) {
-    throw ApiError.badRequest('Bad request', e);
+    throw ApiError.BadRequest('Bad request', e);
   }
 }
 
@@ -54,7 +54,7 @@ const refresh = async (req: Request, res: Response) => {
     res.cookie('refreshToken', employeeData.refreshToken);
     return res.json(employeeData);
   } catch (e) {
-    throw ApiError.badRequest('Refresh token is expired', e);
+    throw ApiError.BadRequest('Refresh token is expired', e);
   }
 }
 

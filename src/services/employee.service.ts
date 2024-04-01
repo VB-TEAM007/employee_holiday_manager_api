@@ -58,14 +58,14 @@ async function getAll() {
 
 async function refresh(refreshToken: string) {
   if (!refreshToken) {
-    throw ApiError.unauthorized();
+    throw ApiError.Unauthorized();
   }
 
   const employeeData: any = tokenService.validateRefreshToken(refreshToken);
   const tokenFromDb = await tokenService.findToken(refreshToken);
 
   if (!employeeData || !tokenFromDb) {
-    throw ApiError.unauthorized();
+    throw ApiError.Unauthorized();
   }
 
   const employee = await emplyoeeModel.findById(employeeData.id);

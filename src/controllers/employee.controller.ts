@@ -11,7 +11,7 @@ const getAll = async (req: Request, res: Response) => {
     
     res.send(formattedData);
   } catch (e) {
-    throw ApiError.badRequest('Bad request', e);
+    throw ApiError.BadRequest('Bad request', e);
   }
 }
 
